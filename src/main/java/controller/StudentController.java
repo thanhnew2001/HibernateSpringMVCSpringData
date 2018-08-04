@@ -46,31 +46,31 @@ public class StudentController { //is the place to declare the url to access to 
 //    }
 
     @Autowired
-    private StudentService studentRepository;
+    private StudentService studentService;
 
     @RequestMapping(path="students", method = RequestMethod.GET)
     public List<Student> getStudents() {
-        return (List<Student>) studentRepository.findAll();
+        return (List<Student>) studentService.findAll();
     }
 
     @RequestMapping(path = "students", method = RequestMethod.POST)
     public int addStudent(@RequestBody  Student student){
-        return studentRepository.save(student).getId();
+        return studentService.save(student).getId();
     }
 
     @RequestMapping(path = "students/{studentId}", method = RequestMethod.DELETE)
     public void deleteStudent(@PathVariable int studentId){
-        studentRepository.delete(Long.valueOf(studentId));
+        studentService.delete(Long.valueOf(studentId));
     }
 
     @RequestMapping(path = "students", method = RequestMethod.PUT)
     public void updateStudent(@RequestBody  Student student){
-        studentRepository.save(student);
+        studentService.save(student);
     }
 
     @RequestMapping(path = "students/{studentId}", method = RequestMethod.GET)
     public Student getStudent(@PathVariable int studentId){
-        return studentRepository.findOne(Long.valueOf(studentId));
+        return studentService.findOne(Long.valueOf(studentId));
     }
 
 
