@@ -1,6 +1,7 @@
 package model;
-
 import javax.persistence.*;
+
+import java.util.List;
 
 /**
  * Created by CoT on 10/14/17.
@@ -18,7 +19,15 @@ public class Student {
     @Column
     private String name;
 
-    public Student() {
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Visit> visits;
+
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
     }
 
     public int getId() {

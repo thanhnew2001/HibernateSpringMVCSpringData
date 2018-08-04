@@ -19,6 +19,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
+@EnableWebMvc
 @ComponentScan({"controller", "service"})
 public class AppConfig {
 //
@@ -36,7 +37,7 @@ public class AppConfig {
         //For mysql
         //properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         properties.put("hibernate.show_sql", true);
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create-drop");
 
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 

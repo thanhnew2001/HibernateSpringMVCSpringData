@@ -1,6 +1,0 @@
-model/Teacher.class
-config/AppConfig.class
-model/Student.class
-config/WebAppInitializer.class
-controller/StudentController.class
-service/StudentService.class

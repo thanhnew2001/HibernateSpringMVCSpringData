@@ -2,6 +2,7 @@ package service;
 
 import model.Student;
 import model.Teacher;
+import model.Visit;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,36 +27,41 @@ public class StudentService {
         this.sessionFactory = sessionFactory;
     }
 
-    public void saveStudent(Student student){
+    //add, update, delete, getAll, get1
+
+    public int addStudent(Student student){
+        //assign student to visits:
+
+        for (Visit visit: student.getVisits()){
+            visit.setStudent(student);
+        }
+
         sessionFactory.getCurrentSession().save(student);
+        return student.getId();
     }
 
-    public List<Teacher> getAllTeachers(){
-        return sessionFactory.getCurrentSession().createQuery("from Teacher").list();
-
+    public void updateStudent(Student student){
+        sessionFactory.getCurrentSession().update(student);
     }
 
-    public Student getStudent(int id){
-        Query query = sessionFactory.getCurrentSession().createQuery("from Student where id:id");
-        query.setInteger("id", id);
-
-        return (Student) query.uniqueResult();
+    public void deleteStudent(int  studentId){
+        Student student = getStudent(studentId);
+        sessionFactory.getCurrentSession().delete(student);
 
     }
-
 
     public List<Student> getAllStudents(){
-        Query query = sessionFactory.getCurrentSession().createQuery("from Student");
-        return query.list();
+        return sessionFactory.getCurrentSession().createQuery("from Student").list();
+    }
+
+    public Student getStudent(int  studentId){
+        return (Student) sessionFactory.getCurrentSession().get(Student.class, studentId);
 
     }
 
-    public List<Student> findStudents(String name){
-       Query query = sessionFactory.getCurrentSession().createQuery("from Student s where s.name like :name");
 
-       query.setString("name", "%"+name+"%");
 
-       return query.list();
-    }
+
+
 
 }
