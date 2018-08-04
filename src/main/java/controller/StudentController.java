@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.StudentService;
 
+
 import java.util.List;
 
 /**
@@ -16,32 +17,60 @@ public class StudentController { //is the place to declare the url to access to 
     //end point = webAPI = web services
     //to run the project, cd to the path, then mvn jetty:run
 
+//    @Autowired
+//    private StudentService studentService;
+//
+//    @RequestMapping(path="students", method = RequestMethod.GET)
+//    public List<Student> getStudents() {
+//        return studentService.getAllStudents();
+//    }
+//
+//    @RequestMapping(path = "students", method = RequestMethod.POST)
+//    public int addStudent(@RequestBody  Student student){
+//        return studentService.addStudent(student);
+//    }
+//
+//    @RequestMapping(path = "students/{studentId}", method = RequestMethod.DELETE)
+//    public void deleteStudent(@PathVariable int studentId){
+//        studentService.deleteStudent(studentId);
+//    }
+//
+//    @RequestMapping(path = "students", method = RequestMethod.PUT)
+//    public void updateStudent(@RequestBody  Student student){
+//        studentService.updateStudent(student);
+//    }
+//
+//    @RequestMapping(path = "students/{studentId}", method = RequestMethod.GET)
+//    public Student getStudent(@PathVariable int studentId){
+//        return studentService.getStudent(studentId);
+//    }
+
     @Autowired
-    private StudentService studentService;
+    private StudentService studentRepository;
 
     @RequestMapping(path="students", method = RequestMethod.GET)
     public List<Student> getStudents() {
-        return studentService.getAllStudents();
+        return (List<Student>) studentRepository.findAll();
     }
 
     @RequestMapping(path = "students", method = RequestMethod.POST)
     public int addStudent(@RequestBody  Student student){
-        return studentService.addStudent(student);
+        return studentRepository.save(student).getId();
     }
 
     @RequestMapping(path = "students/{studentId}", method = RequestMethod.DELETE)
     public void deleteStudent(@PathVariable int studentId){
-        studentService.deleteStudent(studentId);
+        studentRepository.delete(Long.valueOf(studentId));
     }
 
     @RequestMapping(path = "students", method = RequestMethod.PUT)
     public void updateStudent(@RequestBody  Student student){
-        studentService.updateStudent(student);
+        studentRepository.save(student);
     }
 
     @RequestMapping(path = "students/{studentId}", method = RequestMethod.GET)
     public Student getStudent(@PathVariable int studentId){
-        return studentService.getStudent(studentId);
+        return studentRepository.findOne(Long.valueOf(studentId));
     }
 
 

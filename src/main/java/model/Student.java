@@ -1,4 +1,6 @@
 package model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.util.List;
@@ -20,6 +22,7 @@ public class Student {
     private String name;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Visit> visits;
 
     public List<Visit> getVisits() {
