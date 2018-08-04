@@ -20,6 +20,7 @@ To switch the remote repo for a local repo
 5. git push -u origin master
 
 ---Commit changed code to the same repo---
+
 3. git add .
 4. git commit -m "Message"
 5. git push -u origin master
